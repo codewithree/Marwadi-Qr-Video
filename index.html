@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f3f3;
+            overflow: hidden;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <img id="bouquet" src="/asset/bouquet.png" alt="Bouquet">
+    <script>
+        // Confetti animation
+        function launchConfetti() {
+            const duration = 1000; // 1 second
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 20,
+                    startVelocity: 20,
+                    spread: 360,
+                    origin: { x: Math.random(), y: Math.random() - 0.2 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
+        // Show bouquet and launch confetti
+        function showBouquet() {
+            const bouquet = document.getElementById("bouquet");
+            bouquet.style.opacity = "1"; 
+            bouquet.style.transition = "opacity 1s ease-in-out";
+
+            launchConfetti();
+
+            setTimeout(() => {
+                window.location.href = "https://www.youtube.com/watch?v=example"; 
+            }, 1500);
+        }
+
+        // Start the surprise on page load
+        window.onload = showBouquet;
+    </script>
+</body>
+</html>
